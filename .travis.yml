@@ -1,4 +1,10 @@
 sudo: required
+language: java
 
 script:
-  - git status
+  - ls
+  - mkdir sl
+  - cd sl
+  - git clone -b develop https://cuitaocrazy:cuitao800505@gitee.com/yada-kitten/shouftOfficialWebsite.git
+  - cd shouftOfficialWebsite
+  - mvn package
