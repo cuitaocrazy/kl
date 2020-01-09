@@ -5,8 +5,10 @@ services:
   - docker
 
 script:
-  - git clone -b develop https://cuitaocrazy:cuitao800505@gitee.com/yada-kitten/shouftOfficialWebsite.git
+  - git clone -b develop $CLONE_URL
   - cd shouftOfficialWebsite
   - mvn package
   - cd ..
+  - echo "$DOCKERHUB_PWD" | docker login -u cuitaocrazy --password-stdin
   - docker build -t cuitaocrazy/shouft:latest .
+  - docker push cuitaocrazy/shouft:latest
