@@ -12,4 +12,4 @@ script:
   - cd shouftOfficialWebsite
   - mvn package
   - cd ..
-  - docker build -t cuitaocrazy/shouftOfficialWebsite .
+  - docker build -t cuitaocrazy/shouft:latest .
