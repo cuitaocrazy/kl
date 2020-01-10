@@ -1,1 +1,1 @@
-https://travis-ci.org/cuitaocrazy/kl.svg?branch=master
+![](https://travis-ci.org/cuitaocrazy/kl.svg?branch=master)
