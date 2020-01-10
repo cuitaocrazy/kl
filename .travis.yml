@@ -7,6 +7,7 @@ services:
 script:
   - git clone -b develop $CLONE_URL
   - cd shouftOfficialWebsite
+  - "sed -i 's/ddl-auto: none/ddl-auto: update/'" src/main/resources/application.yml
   - mvn package
   - cd ..
   - echo "$DOCKERHUB_PWD" | docker login -u cuitaocrazy --password-stdin
