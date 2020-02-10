@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>美点卡业务介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+<div th:insert="~{header :: copy}"></div>
+
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item"><a href="#">首页</a></li>
+            <li class="breadcrumb-item active">公司业务</a></li>
+            <li class="breadcrumb-item active" aria-current="page">自发卡业务介绍</li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container">
+    <!--美点卡业务介绍 start-->
+    <div class="row spontaneous-card">
+        <div class="col-lg-7 col-sm-7">
+            <h5>美点卡卡业务介绍</h5><span> </span>
+            <p style="margin-bottom: 0;">
+                首礼.美点"卡是由北京首采联合电子商务有限责任公司发行的糕点类专属储值卡，
+                商户集合首旅集团旗下酒店及餐饮行业的饼房及各类西点产品，遍布京城各黄金商圈。
+                不论是公司福利、还是朋友馈赠，首礼美点卡都是您的便利首选。
+            </p>
+            <div class="point-card-box">
+                卡片分为<p class="point-card-introduce">100、300、500、1000</p>
+                四种面额，自购买之日起3年内有效。<br/>
+                可以直接拨打全国统一客服热线
+                <p class="point-card-introduce">400-115-0505</p>
+                进行产品查询，<br/>或拨打购卡热线010-85639680，85628863告诉我们您的需求。
+            </div>
+        </div>
+        <div class="col-lg-5 col-sm-5">
+            <img th:src="@{/images/point-card.png}" >
+        </div>
+    </div>
+    <!--美点卡业务介绍 end-->
+
+
+    <!--美点卡特色 start-->
+    <div class="row">
+        <div class="card-features marginR">
+            <p class="text-gradient"><span>5</span>星级的黄金配色</p>
+            <p>
+                每一款蛋糕的材料配搭用量，都使用考究工艺进行烘培。每一款蛋糕中都凝结了
+                蛋糕师的用心与专注，专注每一个制作烘培的细节，遵循用心来打造产品、
+                绝不敷衍而制。
+            </p>
+        </div>
+
+        <div class="card-features">
+            <p class="text-gradient"><span>5</span>星级的浓郁滋味</p>
+            <p>
+                当每一块蛋糕呈现在面前时，所具有的不是华而不实的外表。
+                而是由内而外，从包装、口感、材质、服务等各方面共同展
+                现出的醇正，而这种真正的甜品独具代表性的就是其浓而不重的醇正滋味。
+            </p>
+        </div>
+
+        <div class="card-features marginR">
+            <p class="text-gradient"><span>5</span>星级的食品安全</p>
+            <p>
+                每一个产品，都出自具有多年良好口碑的优质商户所聘请的专业西点大师，
+                每项原材料的采购遵循集采流程的正规渠道，我们承诺：用心烘焙、用心服务、
+                用心打造。食品安全是我们至上的追求目标。
+            </p>
+        </div>
+
+        <div class="card-features">
+            <p class="text-gradient"><span>5</span>星级的馈赠佳品</p>
+            <p>
+                我们的用心，体现在每个假日、每个节日，你的纪念日都无法缺少。
+                我们为您与家人朋友温馨送上的不仅仅是一款甜点，更是他人眼中的焦点，
+                您眼中的温馨礼物首选之一。
+            </p>
+        </div>
+    </div>
+    <!--美点卡特色 end-->
+
+    <!--使用商户 start-->
+    <div class="row marginT">
+        <div class="col-lg-12 col-sm-12">
+            <h5 class="query-title">使用商户</h5>
+        </div>
+    </div>
+    <!--使用商户 end-->
+
+    <!--使用列表 start-->
+    <div class="row heart-box">
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">马克西姆饼房</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">北京莫斯科餐厅饼房</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">京伦饭店莎莉饼屋</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">长富宫饭店饼房</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">和平宾馆品坊糕饼店</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">建国饭店大堂吧西点</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">亮马河饭店饼房</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">凯宾斯基饭店美食廊</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">西苑饭店咖啡厅西点</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">新世纪日航饭店咖啡厅西点</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">前门建国饭店饼房</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">北京展览馆宾馆西点</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">三宝乐面包房崇文门店</a>
+        </div>
+
+        <div class="col-lg-3 col-sm-3">
+            <img th:src="@{/images/heart.png}" >
+            <a href="#">三宝乐面包房和平里店</a>
+        </div>
+    </div>
+    <!--使用列表 eng-->
+
+    <div class="text-box">
+        <p>凯威大厦售卡中心</p>
+        <p>地 址：朝阳区雅宝路10号凯威大厦一层</p>
+        <p>电 话：85639680</p>
+        <p>工作时间：周一至周五9:00-18:00</p>
+    </div>
+</div>
+<!-- /.container -->
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

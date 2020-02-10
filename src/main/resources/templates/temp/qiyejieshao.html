@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>企业介绍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+<div th:insert="~{header :: copy}"></div>
+
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item"><a href="#">首页</a></li>
+            <li class="breadcrumb-item active">关于我们</a></li>
+            <li class="breadcrumb-item active" aria-current="page">企业介绍</li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container about-box">
+    <h5>企业介绍</h5>
+    <p class="about-boxMT">
+        北京首采联合电子商务有限责任公司（简称“首采联合”），成立于2009年，注册资本为1亿元人民币。是北京首都旅游集团有限责任公司 （http://www.btg.com.cn/）为实现集团化、集约化管理，以信息化技术为手段，通过整合内部资源，拓展外部资源，出资成立的电子商务公司。自成立以来，公司依托首旅集团“食、宿、行、游、购、娱”六大板块内实体资源及集团旗下“全聚德”、“东来顺”、“建国”、“如家”、“燕莎”、“首汽”等优势品牌和广泛社会资源，在B2B、B2C以及C2C领域拓展扩张，实现线上线下旅游消费多功能服务，保持着高速稳健的发展态势，业务规模及服务领域不断扩大
+    </p>
+    <p>
+        公司拥有良好的服务体系，安全的支付平台，舒心的用卡环境，已经成为众多政府机构、企事业单位、中/外资公司首选的电子支付、清/结算服务的金融服务商。截至目前，首采联合已成为北京地区最具影响力的电子支付及预付费卡领域的领军企业之一。
+    </p>
+    <p>
+        公司业务范围：预付卡发行与受理，互联网支付、积分会员服务业务以及企业储值卡解决方案等。
+    </p>
+    <p>
+        首采联合在系统安全、技术创新、资金安全及风险控制领域已得到众多合作企业的一致认可，并于2011年末获得央行颁发的《支付业务许可证》。目前与北京地区多家预付卡公司开展了战略合作，已经成为北京地区第三方支付行业中举足轻重的企业。
+    </p>
+</div>
+<!-- /.container -->
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

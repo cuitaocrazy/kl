@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>合作伙伴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+<div th:insert="~{header :: copy}"></div>
+
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item"><a href="#">首页</a></li>
+            <li class="breadcrumb-item active">关于我们</a></li>
+            <li class="breadcrumb-item active" aria-current="page">合作伙伴</li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container about-box">
+    <h5>合作伙伴</h5>
+    <p class="about-boxMT">
+        我们拥有数百家优质诚信商户，业务涵盖：商场、餐饮、酒店、度假村、旅游及票务、珠宝及古玩、汽车服务、食品、娱乐及休闲、体育及健身等领域并在每个领域都有广泛深度的合作
+    </p>
+
+
+    <!-- 商户logo -->
+    <div class="cases-list marginB">
+        <div class="cases-list-li">
+            <img th:src="@{/images/quanjude.png}">
+        </div>
+
+        <div class="cases-list-li">
+            <img th:src="@{/images/donglaishun.png}">
+        </div>
+
+        <div class="cases-list-li">
+            <img th:src="@{/images/changchungong.png}" >
+        </div>
+        <div class="cases-list-li">
+            <img th:src="@{/images/xinyan.png}" >
+        </div>
+        <div class="cases-list-li">
+            <img th:src="@{/images/yansha.png}">
+        </div>
+
+        <div class="cases-list-li">
+            <img th:src="@{/images/minzu.png}">
+        </div>
+
+        <div class="cases-list-li">
+            <img th:src="@{/images/shenzhou.png}" >
+        </div>
+        <div class="cases-list-li">
+            <img th:src="@{/images/xidan.png}" >
+        </div>
+        <div class="cases-list-li">
+            <img th:src="@{/images/sanbao.png}" >
+        </div>
+        <div class="cases-list-li">
+            <img th:src="@{/images/tianjin.png}" >
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- /.container -->
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

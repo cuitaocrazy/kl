@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+    <meta charset="UTF-8">
+    <title th:text="${menuTwoPath}">卡余额查询页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+    <script src="../../static/js/CFCASIPInput.min.js" th:src="@{/js/CFCASIPInput.min.js}"></script>
+    <script src="../../static/js/cfcapclogin.js" th:src="@{/js/cfcapclogin.js}"></script>
+</head>
+<body>
+<div th:insert="~{header :: copy}"></div>
+<!--页面当前位置-->
+
+<!--/*@thymesVar id="menuOnePath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置：&nbsp;</li>
+            <li class="breadcrumb-item">首页</li>
+            <li class="breadcrumb-item active" th:text="${menuOnePath}"></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${menuTwoPath}"></li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row marginB">
+        <div class="col-lg-8 col-sm-8">
+            <h5 class="query-title">卡余额查询</h5>
+
+            <!-- from表单 -start-->
+
+            <form id="submitForm" method="post" th:action="@{/balance/remain}">
+                <div class="Card-balance-box">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">卡号码</label>
+                        </div>
+                        <input type="text" name="cardNo" id="cardNo" class="form-control"
+                               aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" placeholder="请输入卡号码"/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text">查询密码</label>
+                        </div>
+                        <div class="form-control" tabindex="0">
+                            <div id="psd" name="psd"
+                                 aria-label="Sizing example input"
+                                 aria-describedby="inputGroup-sizing-default"></div>
+                            <!-- 1.子div的高度必须比父div大17px,主要是为了遮挡住scrollbar 2.子div宽度与父div宽度保持一致-->
+                        </div>
+                        <!--/*@thymesVar id="serverRandom" type="java.lang.String"*/-->
+                        <!--/*@thymesVar id="menuOneId" type="java.lang.String"*/-->
+                        <!--/*@thymesVar id="menuTwoId" type="java.lang.String"*/-->
+                        <input id="serverRandom" name="serverRandom" th:value="${serverRandom}" type="hidden"/>
+                        <input id="password" name="password" type="hidden"/>
+                        <input id="clientRandom" name="clientRandom" type="hidden"/>
+                        <input id="menuOneId" name="menuOneId" type="hidden" th:value="${menuOneId}"/>
+                        <input id="menuTwoId" name="menuTwoId" type="hidden" th:value="${menuTwoId}"/>
+                    </div>
+                    <div class="from-error-text" id="errorMsg"></div>
+                    <div class="text-center">
+                        <button type="button" onclick="balanceQuery()" class="btn btn-danger">提交</button>
+                    </div>
+                </div>
+            </form>
+            <!-- from表单 -end-->
+
+            <!--提示信息 start-->
+            <!--/*@thymesVar id="isHidden" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="cardNo" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="bal" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="attribute" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="status" type="java.lang.String"*/-->
+            <!--/*@thymesVar id="expDate" type="java.lang.String"*/-->
+            <div class="Card-balance-results" th:hidden="${isHidden}">
+                <div class="Card-balance-money">
+                    <p th:text="'卡号:'+${cardNo}"></p>
+                    <p class="results-money" th:text="'￥'+${bal}"></p>
+                </div>
+                <p class="results-attribute" th:text="${attribute}"></p>
+                <p class="results-state" th:text="${status}"></p>
+                <p class="results-time" th:text="${expDate}"></p>
+            </div>
+        </div>
+        <!--提示信息 end-->
+
+        <!-- 模态框 -->
+        <div class="modal fade myModal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+            <div class="modal-dialog modal-custom" role="document">
+                <div class="modal-content">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <img id="resultImg" th:src="@{/images/results-2.png}" class="results-img">
+                            <div id="result">该页无法显示,请与系统管理员联系!</div>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div style="display: none">
+            <button type="button" id="sub" class="btn btn-danger" onclick=""></button>
+            <!--data-toggle="modal" data-target=".myModal"-->
+        </div>
+        <!--  微信公众号 -start-->
+        <div class="col-lg-4 col-sm-4 text-center public-box">
+            <img th:src="@{/images/1c4624583e97384838eefa8193d1308c.jpg}">
+            <p>微信公众号：首付通</p>
+            <p>请关注首付通微信公众号</p>
+        </div>
+        <!--  微信公众号 -end-->
+    </div>
+</div>
+<!-- /.container -->
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+<script th:inline="javascript">
+    /*页面加载进来之时*/
+    document.onreadystatechange = function () {
+        $("#sub").removeAttr("data-target", ".myModal");
+        $("#sub").removeAttr("data-toggle", "modal");
+        $("#result").text("");
+        if ([[${errorMsg}]] !== null) {
+            $("#result").text([[${errorMsg}]]);
+            $("#sub").attr("data-target", ".myModal");
+            $("#sub").attr("data-toggle", "modal");
+            document.getElementById("sub").click();
+        }
+    };
+
+    function balanceQuery() {
+        var submitFlag = true;
+        var verifyFlag = true;
+        var cardNo = $("#cardNo").val().replace(/\s*/g, "");
+        var form = $("#submitForm");
+        var psd = $("#psd").text();
+        var errorMsg = $("#errorMsg");
+        var cardNoRule = /^[\d]{7,19}$/;
+        if (!cardNoRule.test(cardNo)) {
+            submitFlag = false;
+            errorMsg.text("卡号不存在");
+            return;
+        } else {
+            $.ajax({
+                url: "ajax_CheckCardNo",
+                data: {cardNo: cardNo},
+                type: "post",
+                cache: false,
+                dataType: "text",
+                async: false, //同步请求
+                success: function (data) {
+                    data = data.toLowerCase();
+                    var loginStr = new RegExp('doctype html');
+                    var toLogin = loginStr.test(data);
+                    if (toLogin) {
+                        location.reload();
+                        submitFlag = false;
+                        verifyFlag = false;
+                    } else {
+                        if (data !== "") {
+                            submitFlag = false;
+                            verifyFlag = false;
+                            errorMsg.text(data);
+                        }
+                    }
+                },
+                error: function () {
+                    submitFlag = false;
+                    verifyFlag = false;
+                    errorMsg.text("系统错误，请联系管理员！");
+                }
+            });
+        }
+        if (verifyFlag) {
+            if (psd.length !== 6) {
+                submitFlag = false;
+                errorMsg.text("查询密码应该是6位");
+                return;
+            }
+            setPwd();
+            if (submitFlag) {
+                form[0].submit();
+            }
+        }
+    }
+</script>
+</body>
+</html>

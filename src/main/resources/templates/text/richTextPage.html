@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+    <meta charset="UTF-8">
+    <title th:text="${menuTwoPath}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+<!--/*@thymesVar id="menuOnePath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwo" type="com.yada.btg.web.entity.MenuTwo"*/-->
+<div th:insert="~{header :: copy}"></div>
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item">首页</li>
+            <li class="breadcrumb-item active" th:text="${menuOnePath}"></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${menuTwoPath}"></li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row marginB">
+        <div th:utext="${menuTwo.content}"></div>
+    </div>
+</div>
+<!-- /.container -->
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

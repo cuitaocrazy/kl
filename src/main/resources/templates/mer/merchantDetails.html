@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="menuOnePath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="page" type="org.springframework.data.domain.Page"*/-->
+<!--/*@thymesVar id="merchantInfo" type="com.yada.btg.web.entity.MerchantInfo"*/-->
+<!--/*@thymesVar id="imgPre" type="java.lang.String"*/-->
+<!--/*@thymesVar id="mapInfo" type="java.lang.String"*/-->
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${menuTwoPath}">商户详情页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+
+<div th:insert="~{header :: copy}"></div>
+
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item">首页</li>
+            <li class="breadcrumb-item active" th:text="${menuOnePath}">首付通卡</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${menuTwoPath}">首付通卡商户查询</li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row merchants-box">
+        <div class="col-lg-7 col-sm-7">
+            <h5 class="query-title" th:text="${merchantInfo.merTitle}">永安宾馆咖啡厅</h5>
+            <p th:if="${!(merchantInfo.telephone== null||merchantInfo.telephone=='')} "
+               th:utext="'电话：'+${merchantInfo.telephone}">电话：85284686</p>
+            <p th:if="${!(merchantInfo.address==null||merchantInfo.address=='')} "
+               th:utext="'地址：'+${merchantInfo.address}">地址：朝阳区东三环北路38号好世界商业广场2层</p>
+            <p th:if="${!(merchantInfo.otherDesc==null||merchantInfo.otherDesc=='')} "
+               th:utext="${merchantInfo.otherDesc}">
+                易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄
+                易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄。
+            </p>
+        </div>
+        <div class="col-lg-5 col-sm-5">
+            <img th:src="${imgPre+merchantInfo.merMainImg}" >
+            <div th:if="${!(merchantInfo.discountMerFlag == null||merchantInfo.discountMerFlag=='')}">
+                <div class="store-preferential store-info" th:if="${merchantInfo.discountMerFlag eq '1'}">惠</div>
+                <div th:if="${merchantInfo.discountMerFlag eq '0'}"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--大标题-->
+    <div class="content-title">
+        <p>
+            商户介绍
+        </p>
+        <p>MERCHANTS INTRODUCE</p>
+    </div>
+    <!--大标题结束-->
+
+    <div class="merchants-details" th:if="${merchantInfo.merchantInfoExt.size()>=0}"
+         th:each="merchantInfoExt:${merchantInfo.merchantInfoExt}">
+        <img th:if="${!(merchantInfoExt.merImg == null||merchantInfoExt.merImg=='')}"
+             th:src="${imgPre+merchantInfoExt.merImg}">
+        <p th:if="${!(merchantInfoExt.textIntroduction == null|| merchantInfoExt.textIntroduction=='')}"
+           th:utext="${merchantInfoExt.textIntroduction}">
+            易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假
+            山庄易县欣燕都望龙度假山庄易县欣燕都易县欣燕都望龙度假山庄易县欣燕都望龙
+            度假山庄易县欣燕都望龙度假山庄易县欣燕都望龙度假山庄易县欣燕龙度假山庄易县欣燕都
+        </p>
+        </div>
+
+    <div class="merchants-details-footer" th:if="${(!(merchantInfo.importantClause == null || merchantInfo.importantClause=='')||!(merchantInfo.discountInfo == null|| merchantInfo.discountInfo==''))}">
+        <p th:if="${!(merchantInfo.importantClause == null || merchantInfo.importantClause=='')}"
+           th:utext="' 特别声明：'+${merchantInfo.importantClause}">特别声明：山庄易县欣燕都望龙</p>
+        <p th:if="${!(merchantInfo.discountInfo == null|| merchantInfo.discountInfo=='')} "
+           th:utext="'优惠信息：'+${merchantInfo.discountInfo}">优惠信息：2019/09/11-2019/10/09全场9折哦</p>
+    </div>
+</div>
+
+<!-- /.container -->
+
+    <a class="here-box" th:href="${mapInfo}" target="_blank">
+        <p>到这里去</p>
+    </a>
+
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

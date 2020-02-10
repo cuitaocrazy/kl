@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="menuOneId" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwoId" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuOnePath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="menuTwoPath" type="java.lang.String"*/-->
+<!--/*@thymesVar id="size" type="java.lang.Integer"*/-->
+<!--/*@thymesVar id="oldMerTitle" type="java.lang.String"*/-->
+<!--/*@thymesVar id="oldArea" type="java.lang.String"*/-->
+<!--/*@thymesVar id="oldMerType" type="java.lang.String"*/-->
+<!--/*@thymesVar id="oldDiscountMerFlag" type="java.lang.String"*/-->
+<!--/*@thymesVar id="oldCardType" type="java.lang.String"*/-->
+<!--/*@thymesVar id="merTypeList" type="java.util.List<com.yada.btg.web.entity.DictInfo>"*/-->
+<!--/*@thymesVar id="itemValue" type="java.lang.String"*/-->
+<!--/*@thymesVar id="areaList" type="java.util.List<com.yada.btg.web.entity.DictInfo>"*/-->
+<!--/*@thymesVar id="cardTypeList" type="java.util.List<com.yada.btg.web.entity.DictInfo>"*/-->
+<!--/*@thymesVar id="discountMerFlagList" type="java.util.List<com.yada.btg.web.entity.DictInfo>"*/-->
+<!--/*@thymesVar id="sideshowMerChantList" type="java.util.List<com.yada.btg.web.entity.MerchantInfo>"*/-->
+<!--/*@thymesVar id="contents" type="java.util.List<com.yada.btg.web.entity.MerchantInfo>"*/-->
+<!--/*@thymesVar id="cardType" type="java.util.Arrays"*/-->
+<!--/*@thymesVar id="ct" type="java.lang.String"*/-->
+<!--/*@thymesVar id="imgPre" type="java.lang.String"*/-->
+<!--/*@thymesVar id="page" type="org.springframework.data.domain.Page"*/-->
+<!--/*@thymesVar id="firstQueryString" type="java.lang.String"*/-->
+<!--/*@thymesVar id="preQueryString" type="java.lang.String"*/-->
+<!--/*@thymesVar id="nextQueryString" type="java.lang.String"*/-->
+<!--/*@thymesVar id="lastQueryString" type="java.lang.String"*/-->
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${menuTwoPath}">商户列表页面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta charset="utf-8">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css}">
+    <link rel="stylesheet" th:href="@{/css/modern-business.css}">
+</head>
+<body>
+
+<div th:insert="~{header :: copy}"></div>
+
+<!--页面当前位置-->
+<div class="current-position">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li>|| 您当前所在的位置: &nbsp;</li>
+            <li class="breadcrumb-item">首页</li>
+            <li class="breadcrumb-item active" th:text="${menuOnePath}">首付通卡</li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${menuTwoPath}">首付通卡商户查询</li>
+        </ol>
+    </nav>
+</div>
+<!--页面当前位置结束-->
+
+<!-- Page Content -->
+<div class="container">
+    <form id="collectForm" th:action="@{/mer/query}" method="get">
+        <!--隐藏字段-->
+        <label th:each="ct:${cardType}">
+            <input name="cardType" type="hidden" th:value="${ct}"/>
+        </label>
+        <input name="menuOneId" type="hidden" th:value="${menuOneId}"/>
+        <input name="menuTwoId" type="hidden" th:value="${menuTwoId}"/>
+        <!-- **搜索栏 start ** -->
+        <div class="input-group search-box">
+            <input type="text" class="form-control input-lg" placeholder="搜索" name="merTitle"
+                   th:if="${oldMerTitle== null || oldMerTitle==''}"/>
+            <input class="form-control input-lg" type="text" name="merTitle"
+                   th:if="${!(oldMerTitle == null||oldMerTitle=='')}"
+                   th:value="${oldMerTitle}"/>
+            <button class="input-group-addon btn btn-danger" onclick="submitReq()">
+                <i class="fas fa-search"></i> 搜索
+            </button>
+        </div>
+        <!-- **搜索栏 end ** -->
+
+        <!-- 筛选条件 -start-->
+
+        <div class="web-content-search">
+            <div class="search-list-box">
+                <div class="search-list">
+                    <div class="search-list-left">区域:</div>
+                    <div class="search-list-right">
+                        <div class="screening-content-list-ul">
+                            <label class="screening-content-list-li">
+                                <input type="radio" name="area"
+                                       th:checked="${#strings.isEmpty(oldArea) || oldArea=='全部'}" value="全部"
+                                       onclick="submitReq()"/>
+                                <span>全部</span>
+                            </label>
+                            <label class="screening-content-list-li" th:each="area:${areaList}">
+                                <input type="radio" name="area" onclick="submitReq()"
+                                       th:checked="${area.itemValue==oldArea}"
+                                       th:value="${area.itemValue}"/>
+                                <span th:text="${area.itemValue}">延庆</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-list">
+                    <div class="search-list-left">商户类型:</div>
+                    <div class="search-list-right">
+                        <div class="screening-content-list-ul">
+                            <label class="screening-content-list-li">
+                                <input type="radio" name="merType"
+                                       th:checked="${#strings.isEmpty(oldMerType) || oldMerType=='全部'}" value="全部"
+                                       onclick="submitReq()"/>
+                                <span>全部</span>
+                            </label>
+                            <label class="screening-content-list-li" th:each="merType:${merTypeList}">
+                                <input type="radio" name="merType" onclick="submitReq()"
+                                       th:value="${merType.itemValue}"
+                                       th:checked="${merType.itemValue==oldMerType}"/>
+                                <span th:text="${merType.itemValue}">商场</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-list">
+                    <div class="search-list-left">优惠:</div>
+                    <div class="search-list-right">
+                        <div class="screening-content-list-ul">
+                            <label class="screening-content-list-li">
+                                <input type="radio" name="discountMerFlag"
+                                       th:checked="${#strings.isEmpty(oldDiscountMerFlag) || oldDiscountMerFlag=='全部'}"
+                                       value="全部"
+                                       onclick="submitReq()"/>
+                                <span>全部</span>
+                            </label>
+                            <label class="screening-content-list-li" th:each="discountMerFlag:${discountMerFlagList}">
+                                <input type="radio" name="discountMerFlag" onclick="submitReq()"
+                                       th:checked="${discountMerFlag.itemValue==oldDiscountMerFlag}"
+                                       th:value="${discountMerFlag.itemValue}"/>
+                                <span th:text="${discountMerFlag.itemValue}">有优惠</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-list-line-box">
+                <div class="search-list-line">
+                    <div class="search-more-btn" onclick="searchMoreBtn()">
+                        <text>查看更多</text>
+                        <span class="moreIcon"></span></div>
+                </div>
+            </div>
+        </div>
+        <!-- 筛选条件 -end-->
+    </form>
+
+    <!-- 服务号 -->
+    <div class="Merchant-number">
+        <img th:src="@{/images/1c4624583e97384838eefa8193d1308c.jpg}">
+        <p>微信公众号：首付通</p>
+        <p>请关注首付通微信公众号</p>
+    </div>
+
+    <!-- end 服务号 -->
+
+
+    <!-- **轮播图 start ** -->
+    <div th:if="${#lists.size(sideshowMerChantList)<=1}" class="header-img merchants-list" th:each="sideshow:${sideshowMerChantList}">
+        <a th:href="@{/mer/queryMer(merInfoId=${sideshow.merInfoId},menuOneId=${menuOneId},menuTwoId=${menuTwoId})}">
+            <img th:src="@{${imgPre+sideshow.merMainImg}}" width="100%">
+        </a>
+    </div>
+    <div th:if="${#lists.size(sideshowMerChantList)>=2}" id="carouselExampleIndicators" class="carousel slide merchants-list"
+         data-ride="carousel" data-interval="10000">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner home-shuffling" role="listbox">
+            <th:block>
+                <a th:each="sideshow:${sideshowMerChantList}"
+                   th:href="@{/mer/queryMer(merInfoId=${sideshow.merInfoId},menuOneId=${menuOneId},menuTwoId=${menuTwoId})}">
+                    <img th:src="@{${imgPre+sideshow.merMainImg}}" width="100%">
+                </a>
+            </th:block>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <!-- **轮播图 end ** -->
+
+    <!-- 筛选结果 -start-->
+    <div class="row Homepage-merchants marginT" th:if="${size >= 0}">
+        <div class="col-lg-3 col-sm-6 portfolio-item" th:each="content:${contents}">
+            <a th:href="@{/mer/queryMer(merInfoId=${content.merInfoId},menuOneId=${menuOneId},menuTwoId=${menuTwoId})}">
+                <div class="card">
+                    <img th:src="${imgPre+content.merMainImg}" width="150" title="logo" alt="首付通" class="logo"
+                         th:if="${!(content.merMainImg==null||content.merMainImg=='')}">
+                    <div class="card-body">
+                        <p class="card-title text-center" th:if="${!(content.merTitle==null||content.merTitle=='')}"
+                           th:utext="${content.merTitle}">北京饭店北京厅</p>
+                    </div>
+                    <div class="store-preferential" th:if="${content.discountMerFlag eq '1'}">惠</div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+    <!-- 筛选结果 -end-->
+    <!-- 分页 -start-->
+    <div class="list-page-box">
+        <div class="list-page" th:if="${page ne null} ">
+            <a th:if="${page.getNumber() eq 0}" class="pageGaryA" data-toggle="tooltip"
+               th:title="不能操作">首页</a>
+            <a th:if="${page.getNumber() > 0}" href="#" th:href="'?'+${firstQueryString}"
+               class="pageActive" data-toggle="tooltip" th:title="首页">首页</a>
+        </div>
+        <div class="list-page">
+            <a th:if="${page.getNumber() eq 0}" class="pageGaryA" data-toggle="tooltip"
+               th:title="不能操作">上一页</a>
+            <a th:if="${page.getNumber() > 0}" href="#" th:href="'?'+${preQueryString}" class="pageActive"
+               data-toggle="tooltip" th:title="上一页">上一页</a>
+        </div>
+        <div class="list-page-combined" th:if="${page eq null}">
+                        <span class="pageText">第<span class="textZhu">0</span>页/共<span class="textZhu">0</span>页&nbsp;&nbsp;总共<span
+                                class="textZhu">0</span>条</span>
+        </div>
+        <div th:if="${page ne null}" class="list-page-combined">
+                    <span class="pageText">
+                        <span class="textZhu" th:if="${page.totalPages eq 0}" th:text="${page.getNumber()}"></span>
+							<span class="textZhu" th:if="${page.totalPages ne 0}"
+                                  th:text="${page.getNumber() + 1}"></span>
+								/
+							<span class="textZhu" th:text="${page.totalPages}"></span>
+						</span>
+        </div>
+        <div class="list-page" th:if="${page eq null} ">
+            <a class="pageGaryA" style="margin-right: 10px;" data-toggle="tooltip" th:title="不能操作">下一页</a>
+            <a class="pageGaryA" data-toggle="tooltip" th:title="不能操作">末页</a>
+        </div>
+
+        <div class="list-page" th:if="${page ne null}">
+            <a th:if="${page.getNumber() eq (page.getTotalPages()-1)} or ${page.getTotalPages() eq 0}"
+               style="margin-right: 10px;" class="pageGaryA" data-toggle="tooltip" th:title="不能操作">下一页</a>
+            <a th:if="${page.getNumber() lt (page.getTotalPages()-1)}" href="#"
+               th:href="'?'+${nextQueryString}"
+               class="pageActive" style="margin-right: 10px;" data-toggle="tooltip" th:title="下一页">下一页</a>
+        </div>
+        <div class="list-page" th:if="${page ne null}">
+            <a th:if="${page.getNumber() eq (page.getTotalPages()-1)} or ${page.getTotalPages() eq 0}"
+               class="pageGaryA" data-toggle="tooltip" th:title="不能操作">末页</a>
+
+            <a th:if="${page.getNumber() lt (page.getTotalPages()-1)}" href="#"
+               th:href="'?'+${lastQueryString}"
+               class="pageActive" data-toggle="tooltip" th:title="末页">末页</a>
+        </div>
+    </div>
+    <!-- 分页 -end-->
+
+
+</div>
+<!-- /.container -->
+
+
+<div th:insert="~{footer :: copy}"></div>
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+<script>
+
+    function submitReq() {
+        var loadingBox = $(".loading-box");
+        var form = $("#collectForm");
+        loadingBox.fadeIn();
+        form[0].submit();
+        $("#JumpError").hide();
+        $(".jump-black-box").fadeIn();
+    }
+
+    //黄页的筛选
+    function screeningEach() {
+        $(".screening-content-list").each(function () {
+            var screeningLiLen = $(this).find(".screening-content-list-li").length;
+            if (screeningLiLen <= 6) {
+                $(this).find(".down").remove();
+            }
+        })
+    }
+
+    function screeningShowMore(e) {
+        var $screeningShow = $(e).parent().parent().find(".screening-content-list-ul")
+        if ($screeningShow.is(".screening-list-show")) {
+            $screeningShow.removeClass("screening-list-show");
+            $(e).removeClass("down-transform");
+        } else {
+            $screeningShow.addClass("screening-list-show");
+            $(e).addClass("down-transform");
+        }
+    }
+
+    function loading() {
+        $(".loading-box").show();
+    }
+
+    //查看更多按钮
+
+    function searchMoreBtn() {
+        var spanArrow = $(".search-more-btn span");
+        var searchListH = 0;
+        $('.search-list').each(function () {
+            searchListH = searchListH + $(this).height();
+        })
+        if (spanArrow.hasClass("more-arrowUp")) {
+            $(".search-more-btn text").text("查看更多");
+            $(".search-more-btn span").removeClass("more-arrowUp");
+            $(".search-more-btn span").addClass("more-arrowDown");
+            $(".search-list-box").animate({"height": "108px"}, 800);
+            // $(".search-list-box").removeClass("listBoxMoreUp").addClass("listBoxMoreDown");
+        } else {
+            $(".search-more-btn text").text("内容收起");
+            $(".search-more-btn span").removeClass("more-arrowDown");
+            $(".search-more-btn span").addClass("more-arrowUp");
+            $(".search-list-box").animate({"height": searchListH}, 800);
+            // $(".search-list-box").removeClass("listBoxMoreDown").addClass("listBoxMoreUp");
+        }
+    }
+
+    function cardIdInputMethod() {
+        var cardIdInputBtnText = $("#cardIdInputBtn").text();
+        if (cardIdInputBtnText != "您可以输入卡号") {
+            $("#cardInputID").hide();
+            $("#cardSelectID").show();
+            $("#cardIdInputBtn").text("您可以输入卡号");
+        } else {
+            $("#cardInputID").show();
+            $("#cardSelectID").hide();
+            $("#cardIdInputBtn").text("您可以选择已绑卡号");
+        }
+    }
+</script>
+</body>
+</html>
